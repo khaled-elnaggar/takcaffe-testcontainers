@@ -1,0 +1,10 @@
+spring:
+  sql:
+    init:
+      mode: always
+
+  datasource:
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:12:///mytestdb?TC_TMPFS=/testtmpfs:rw
+    username: testUser
+    password: testPassword
