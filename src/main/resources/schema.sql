@@ -1,6 +1,6 @@
 create table if not exists customers (
-    id bigserial not null,
-    name varchar not null,
-    registration_date date not null,
-    primary key (id)
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    registration_date DATE NOT NULL,
+    PRIMARY KEY (ID)
 );

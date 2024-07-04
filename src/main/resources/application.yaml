@@ -4,7 +4,7 @@ spring:
       mode: always
 
   datasource:
-    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:postgresql:12:///mytestdb?TC_TMPFS=/testtmpfs:rw
-    username: testUser
-    password: testPassword
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3036//mydb
+    username: user
+    password: password
