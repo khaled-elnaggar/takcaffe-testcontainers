@@ -25,7 +25,6 @@ import static org.awaitility.Awaitility.await;
 @SpringBootTest
 @ActiveProfiles("test")
 @Testcontainers
-@DirtiesContext
 class CustomerNameChangedEventHandlerTest {
   @Container
   static final KafkaContainer kafka = new KafkaContainer(

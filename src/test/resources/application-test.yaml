@@ -2,7 +2,7 @@ spring:
 
   datasource:
     driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:mysql:8.0.36://localhost:3036/mytestdb
+    url: jdbc:tc:postgresql:16-alpine:///mytestdb?TC_TMPFS=/testtmpfs:rw
     username: testUser
     password: testPassword
 
