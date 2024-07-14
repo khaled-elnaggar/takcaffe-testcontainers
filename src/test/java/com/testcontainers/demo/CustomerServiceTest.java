@@ -1,8 +1,11 @@
 package com.testcontainers.demo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Date;
 import java.util.List;
@@ -11,10 +14,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+@Testcontainers
 class CustomerServiceTest {
 
   @Autowired
   CustomerService customerService;
+
+  @BeforeEach
+  void setUp() {
+    customerService.deleteCustomers();
+  }
 
   @Test
   void shouldGetAllCustomers() {
