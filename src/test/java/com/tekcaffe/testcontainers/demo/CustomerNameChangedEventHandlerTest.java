@@ -1,10 +1,12 @@
-package com.testcontainers.demo;
+package com.tekcaffe.testcontainers.demo;
 
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -20,9 +22,10 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @ActiveProfiles("test")
 @Testcontainers
+@DirtiesContext
 class CustomerNameChangedEventHandlerTest {
   @Container
   static final KafkaContainer kafka = new KafkaContainer(
@@ -59,7 +62,7 @@ class CustomerNameChangedEventHandlerTest {
             .untilAsserted(() -> {
               List<Customer> customers = customerService.getCustomers();
 
-              assertThat(customers).isNotNull().isNotEmpty().hasSize(1);
+              Assertions.assertThat(customers).isNotNull().isNotEmpty().hasSize(1);
               Customer customer = customers.get(0);
 
               assertThat(customer.getName()).isEqualTo(newName);

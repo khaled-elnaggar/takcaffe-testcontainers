@@ -1,4 +1,4 @@
-package com.testcontainers.demo;
+package com.tekcaffe.testcontainers.demo;
 
 import jakarta.persistence.*;
 

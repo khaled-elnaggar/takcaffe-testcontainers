@@ -1,9 +1,11 @@
-package com.testcontainers.demo;
+package com.tekcaffe.testcontainers.demo;
 
-import com.testcontainers.demo.kafka.payload.CustomerNameChangedEvent;
+import com.tekcaffe.testcontainers.demo.kafka.payload.CustomerNameChangedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,14 @@ public class CustomerService {
 
   @Autowired
   private KafkaTemplate<Long, Object> kafkaTemplate;
+
+  public String getGreeting() {
+    RestTemplate restTemplate = new RestTemplate();
+    String url = "http://" + MySpecialServiceConfigurations.serviceUri + ":" + MySpecialServiceConfigurations.servicePort;
+
+    ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+    return responseEntity.getBody();
+  }
 
   public void registerCustomers(List<Customer> customers) {
     for (Customer customer : customers) {

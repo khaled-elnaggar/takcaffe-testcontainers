@@ -1,7 +1,7 @@
-package com.testcontainers.demo.kafka;
+package com.tekcaffe.testcontainers.demo.kafka;
 
-import com.testcontainers.demo.CustomerRepository;
-import com.testcontainers.demo.kafka.payload.CustomerNameChangedEvent;
+import com.tekcaffe.testcontainers.demo.CustomerRepository;
+import com.tekcaffe.testcontainers.demo.kafka.payload.CustomerNameChangedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
