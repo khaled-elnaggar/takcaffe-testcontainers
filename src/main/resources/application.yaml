@@ -1,4 +1,3 @@
-
 spring:
   sql:
     init:
@@ -9,3 +8,8 @@ spring:
     url: jdbc:mysql://localhost:3036//mydb
     username: user
     password: password
+
+external-services:
+  my-special-service:
+    uri: serviceUri
+    port: 6789

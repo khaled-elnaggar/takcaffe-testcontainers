@@ -19,3 +19,8 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+
+external-services:
+  my-special-service:
+    uri: http://localhost
+    port: -1

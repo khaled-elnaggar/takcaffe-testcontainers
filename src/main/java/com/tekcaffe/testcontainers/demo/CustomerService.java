@@ -2,6 +2,7 @@ package com.tekcaffe.testcontainers.demo;
 
 import com.tekcaffe.testcontainers.demo.kafka.payload.CustomerNameChangedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,16 @@ public class CustomerService {
   @Autowired
   private KafkaTemplate<Long, Object> kafkaTemplate;
 
+  @Value("${external-services.my-special-service.uri}")
+  private String serviceUri;
+
+  @Value("${external-services.my-special-service.port}")
+  private int servicePort;
+
+
   public String getGreeting() {
     RestTemplate restTemplate = new RestTemplate();
-    String url = "http://" + MySpecialServiceConfigurations.serviceUri + ":" + MySpecialServiceConfigurations.servicePort;
+    String url = serviceUri + ":" + servicePort;
 
     ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
     return responseEntity.getBody();

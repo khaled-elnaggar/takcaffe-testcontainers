@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
@@ -20,15 +22,20 @@ class CustomerGreetingTest {
   @Autowired
   private CustomerService customerService;
 
-  static private final int containerPort = MySpecialServiceConfigurations.servicePort;
+  public static final int CONTAINER_PORT = 9876;
 
-  static private final int hostPort = MySpecialServiceConfigurations.servicePort;
+  public static final int HOST_PORT = 9876;
 
   @Container
   static final FixedHostPortGenericContainer<?> mySpecialServiceContainer =
           new FixedHostPortGenericContainer<>("special/my-external-service")
-                  .withFixedExposedPort(hostPort, containerPort)
+                  .withFixedExposedPort(HOST_PORT, CONTAINER_PORT)
                   .waitingFor(Wait.forHttp("/"));
+
+  @DynamicPropertySource
+  static void overrideProperties(DynamicPropertyRegistry registry) {
+    registry.add("external-services.my-special-service.port", () -> CONTAINER_PORT);
+  }
 
   @Test
   void testGenericContainer() {
