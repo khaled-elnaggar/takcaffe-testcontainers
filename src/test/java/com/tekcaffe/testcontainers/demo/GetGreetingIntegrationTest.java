@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 @Testcontainers
-class CustomerGreetingTest {
+class GetGreetingIntegrationTest {
   @Autowired
   private CustomerService customerService;
 
@@ -28,7 +28,7 @@ class CustomerGreetingTest {
 
   @Container
   static final FixedHostPortGenericContainer<?> mySpecialServiceContainer =
-          new FixedHostPortGenericContainer<>("special/my-external-service")
+          new FixedHostPortGenericContainer<>("special/my-special-service")
                   .withFixedExposedPort(HOST_PORT, CONTAINER_PORT)
                   .waitingFor(Wait.forHttp("/"));
 
@@ -36,6 +36,12 @@ class CustomerGreetingTest {
   static void overrideProperties(DynamicPropertyRegistry registry) {
     registry.add("external-services.my-special-service.port", () -> CONTAINER_PORT);
   }
+
+
+
+
+
+
 
   @Test
   void testGenericContainer() {

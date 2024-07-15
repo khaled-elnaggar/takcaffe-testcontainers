@@ -17,23 +17,6 @@ public class CustomerService {
   @Autowired
   private CustomerRepository customerRepository;
 
-  @Autowired
-  private KafkaTemplate<Long, Object> kafkaTemplate;
-
-  @Value("${external-services.my-special-service.uri}")
-  private String serviceUri;
-
-  @Value("${external-services.my-special-service.port}")
-  private int servicePort;
-
-
-  public String getGreeting() {
-    RestTemplate restTemplate = new RestTemplate();
-    String url = serviceUri + ":" + servicePort;
-
-    ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
-    return responseEntity.getBody();
-  }
 
   public void registerCustomers(List<Customer> customers) {
     for (Customer customer : customers) {
@@ -50,8 +33,61 @@ public class CustomerService {
     customerRepository.deleteAll();
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @Autowired
+  private KafkaTemplate<Long, Object> kafkaTemplate;
+
   public void updateCustomerName(Long customerId, String newName) {
     CustomerNameChangedEvent nameChangedEvent = new CustomerNameChangedEvent(customerId, newName);
     kafkaTemplate.send("customer-name-changes", customerId, nameChangedEvent);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @Value("${external-services.my-special-service.uri}")
+  private String serviceUri;
+
+  @Value("${external-services.my-special-service.port}")
+  private int servicePort;
+
+
+  public String getGreeting() {
+    RestTemplate restTemplate = new RestTemplate();
+    String uri = serviceUri + ":" + servicePort;
+
+    ResponseEntity<String> responseEntity = restTemplate.getForEntity(uri, String.class);
+    return responseEntity.getBody();
   }
 }

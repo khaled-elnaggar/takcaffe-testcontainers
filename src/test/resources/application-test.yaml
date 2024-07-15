@@ -6,6 +6,22 @@ spring:
     username: testUser
     password: testPassword
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -19,6 +35,22 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 external-services:
   my-special-service:

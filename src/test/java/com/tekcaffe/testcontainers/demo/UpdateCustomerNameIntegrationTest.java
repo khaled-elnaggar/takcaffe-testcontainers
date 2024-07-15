@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -25,19 +24,24 @@ import static org.awaitility.Awaitility.await;
 @SpringBootTest
 @ActiveProfiles("test")
 @Testcontainers
-class CustomerNameChangedEventHandlerTest {
+class UpdateCustomerNameIntegrationTest {
+
   @Container
   static final KafkaContainer kafka = new KafkaContainer(
           DockerImageName.parse("confluentinc/cp-kafka:7.6.1")
   );
+
 
   @DynamicPropertySource
   static void overrideProperties(DynamicPropertyRegistry registry) {
     registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
   }
 
+
+
+
   @Autowired
-  CustomerService customerService;
+  private CustomerService customerService;
 
   @BeforeEach
   void setUp() {
